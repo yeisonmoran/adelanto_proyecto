@@ -15,12 +15,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Proyecto APPDEV</title>
+    <title>Aerolinia colombia</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/favicon.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/avion.png')}}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -275,23 +275,13 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
-                </li>
+                
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{asset('upload')}}/{{Auth::user()->avatar}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -300,11 +290,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{asset('upload')}}/{{Auth::user()->avatar}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
+                            <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -338,10 +328,15 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
+                          <a class="dropdown-item" href="{{ route('logout') }}"
+                              onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                              {{ __('Logout') }}
+                          </a>
+
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                 @csrf
+                          </form>
                     </li>
                   </ul>
                 </li>
@@ -359,25 +354,26 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
                 <div class="col-lg-20 mb-4 order-0">
-                  <div class="card">
+                  <div class="card" style="background-color: black;">
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
-                        <div class="card-body">
-                        <h1 class="card-title text-primary">Agencia de viajes</h1>
-                        <p class="mb-4">
+                        <div class="card-body ">
+                        <h1 class="card-title text-white">Agencia De Viajes</h1>
+                        <p class="mb-4 text-white">
                             conoce los mejores <span class="fw-bold">descuentos</span> para que puedas viajar por colombia
                         </p>
+                        
                         </div>
                       </div>
                       <div class="col-sm-5 text-center text-sm-left d-flex justify-content-end mr-9">
                         <div class="card-body pb-0 px-0 px-md-4">
                           <img
-                            src="{{asset('assets/img/illustrations/agencia-viajesjpg.png')}}"
-                            height="120"
+                            src="{{asset('assets/img/illustrations/agencia-viajes.png')}}"
+                            height="140"
                             alt="View Badge User"
                             data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                            data-app-light-img="illustrations/agencia-viajesjpg.png"
-                            style="max-width: 100%;"
+                            data-app-light-img="illustrations/agencia-viajes.png"
+                          
                           />
                         </div>
                       </div>
@@ -386,20 +382,59 @@
                 </div>
                
                 <!-- Total Revenue -->
-                <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+                <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
                       <div class="col-md-12">
-                        <h2 class="card-header m-0 me-2 pb-3 text-primary">Paquetes</h2>
+                        <h2 class="card-header m-0 me-2 pb-1 text-negrita">Paquetes</h2>
                         <div class="card-body">
 
                         @if(Session::has('message'))
-                            <div class="alert alert-primary" role="alert">
+                            <div id="message" class="alert alert-danger" role="alert">
                                 {{ Session::get('message') }}
                             </div>
                         @endif
+                        <script>
+                               // Esperar 5 segundos y luego ocultar el mensaje
+                               setTimeout(function() {
+                               document.getElementById('message').style.display = 'none';
+                               }, 5000); // 5000 milisegundos = 5 segundos
+                        </script>
 
                         @yield('content')
+
+
+                        </div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+                <!--/ Total Revenue -->
+
+                <!-- Total Revenue -->
+                <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-12">
+                        <h2 class="card-header m-0 me-2 pb-3 text-negrita">reserva</h2>
+                        <div class="card-body">
+
+                        @if(Session::has('message1'))
+                            <div id="message1" class="alert alert-danger" role="alert">
+                                {{ Session::get('message1') }}
+                            </div>
+                        @endif
+                        <script>
+                              // Esperar 5 segundos y luego ocultar el mensaje
+                            setTimeout(function() {
+                            document.getElementById('message1').style.display = 'none';
+                            }, 
+                            5000); // 5000 milisegundos = 5 segundos
+                       </script>
+
+                        @yield('tabla')
+                        
 
                         </div>
                       </div>
@@ -409,8 +444,74 @@
                 </div>
 
                 <!--/ Total Revenue -->
-                
-                
+
+                <!-- Total Revenue -->
+                <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-12">
+                        <h2 class="card-header m-0 me-2 pb-3 text-negrita">Aerolineas</h2>
+                        <div class="card-body">
+
+                        @if(Session::has('message2'))
+                            <div id="message2" class="alert alert-danger" role="alert">
+                                {{ Session::get('message2') }}
+                            </div>
+                        @endif
+                        <script>
+                             // Esperar 5 segundos y luego ocultar el mensaje
+                             setTimeout(function() {
+                             document.getElementById('message2').style.display = 'none';
+                             }, 5000); // 5000 milisegundos = 5 segundos
+                        </script>
+
+                        @yield('local')
+                        
+
+                        </div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+
+                <!--/ Total Revenue -->
+
+                 <!-- Total Revenue -->
+                <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-12">
+                        <h2 class="card-header m-0 me-2 pb-3 text-negrita">Vuelos</h2>
+                        <div class="card-body">
+
+                        @if(Session::has('message3'))
+                            <div id="message3" class="alert alert-danger" role="alert">
+                                {{ Session::get('message3') }}
+                            </div>
+                        @endif
+
+                        <script>
+                              // Esperar 5 segundos y luego ocultar el mensaje
+                              setTimeout(function() {
+                              document.getElementById('message3').style.display = 'none';
+                              }, 5000); // 5000 milisegundos = 5 segundos
+                        </script>
+
+                        @yield('alrrays')
+
+                        </div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+
+                <!--/ Total Revenue -->
+
+
+               
+
               </div>
               <div class="row">
             </div>
@@ -461,14 +562,7 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div>
+  
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

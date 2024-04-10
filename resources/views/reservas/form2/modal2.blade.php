@@ -1,5 +1,5 @@
-<div class="modal fade" id="modal-delete-{{$prod->id}}" tabindex="-1" arialabelledby="ModalLabel" aria-hidden="true">
-<form method="POST" action="{{ route('reservas.destroy',$prod->id) }}"
+<div class="modal fade" id="modal-delete-{{$reserva->id}}" tabindex="-1" arialabelledby="ModalLabel" aria-hidden="true">
+<form method="POST" action="{{ route('reservas.destroy',$reserva->id) }}"
 role="form" enctype="multipart/form-data">
  <input type="hidden" name="_method" value="delete">
  <input type="hidden" name="_token" value="{{ csrf_token() }}">

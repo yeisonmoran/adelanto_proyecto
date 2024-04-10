@@ -12,5 +12,5 @@ class Reservas extends Model
     
     protected $table = 'reservas';
 
-    protected $fillable = ['usuario_id','paquete_id','fecha_reserva','num_personas','estado'];
+    protected $fillable = ['fecha_reserva','num_personas','estado'];
 }
