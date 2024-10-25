@@ -124,7 +124,7 @@
                 <th>Nombre</th>
                 <th>Pais</th>
                 <th>Disponibilidad</th>
-                <th>Año de fundacion</th>
+                <th>Ano de fundacion</th>
                 <th>Acciones</th>
             </tr> 
         </thead>
